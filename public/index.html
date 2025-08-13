@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Webcam Air Draw + Gemini Suggestions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Air Draw</h1>
+        <div class="controls">
+          <button id="undoBtn" title="Undo (Ctrl+Z)">Undo</button>
+          <button id="redoBtn" title="Redo (Ctrl+Y)">Redo</button>
+          <button id="clearBtn" title="Clear drawing">Clear</button>
+          <button id="captureBtn" title="Capture snapshot">Capture</button>
+          <span class="divider"></span>
+          <label class="inline">
+            Mode
+            <select id="modeSelect">
+              <option value="draw">Draw</option>
+              <option value="edit">Edit</option>
+              <option value="erase">Erase</option>
+            </select>
+          </label>
+          <label class="inline">
+            Shape
+            <select id="shapeTypeSelect">
+              <option value="auto">Auto</option>
+              <option value="circle">Circle</option>
+              <option value="rect">Rectangle</option>
+              <option value="triangle">Triangle</option>
+            </select>
+          </label>
+          <label class="inline">
+            <input type="checkbox" id="snapToShapes" checked /> Snap to Shapes
+          </label>
+          <label class="inline">
+            <input type="checkbox" id="showHands" checked /> Show Hands
+          </label>
+          <label class="inline">
+            Brush
+            <input type="color" id="colorPicker" value="#00e0ff" />
+            <input type="range" id="sizePicker" min="2" max="20" value="4" />
+          </label>
+          <button id="helpBtn" title="How to use">Help</button>
+        </div>
+      </header>
+
+      <main>
+        <div class="stage" id="stage">
+          <video id="webcam" autoplay playsinline></video>
+          <canvas id="handsCanvas"></canvas>
+          <canvas id="drawCanvas"></canvas>
+        </div>
+        <aside>
+          <h2>Suggestions</h2>
+          <ul id="suggestions" class="suggestions"></ul>
+          <small class="muted">Click a suggestion to insert a shape.</small>
+          <h2 style="margin-top:12px">Adjustments</h2>
+          <div class="sliders">
+            <label>Brightness <input id="brightness" type="range" min="50" max="150" value="100" /> <span id="brightnessVal">100%</span></label>
+            <label>Contrast <input id="contrast" type="range" min="50" max="150" value="100" /> <span id="contrastVal">100%</span></label>
+            <label>Saturation <input id="saturation" type="range" min="50" max="150" value="100" /> <span id="saturationVal">100%</span></label>
+          </div>
+          <h2 style="margin-top:12px">Shots</h2>
+          <div id="gallery" class="gallery"></div>
+        </aside>
+      </main>
+
+      <footer>
+        <small>Powered by MediaPipe Hands + Google AI Studio (Gemini)</small>
+      </footer>
+      <div id="helpModal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>How to use</h3>
+            <button id="closeHelp">✕</button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li><b>Connect webcam</b>: Allow camera permission when prompted.</li>
+              <li><b>Draw mode</b>: Pinch thumb + index to draw. Release to stop.</li>
+              <li><b>Snap to shapes</b>: Closed strokes auto-convert to circle/rectangle/triangle.</li>
+              <li><b>Edit mode</b>:
+                <ul>
+                  <li>Pinch inside a shape to move.</li>
+                  <li>Pinch a corner handle to resize.</li>
+                  <li>Pinch the top handle to rotate.</li>
+                  <li>Pinch the red trash handle to delete.</li>
+                </ul>
+              </li>
+              <li><b>Suggestions</b>: Gemini proposes likely shapes; click to insert.</li>
+              <li><b>Undo/Redo</b>: Use buttons or Ctrl+Z / Ctrl+Y.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+  </html>
+
+

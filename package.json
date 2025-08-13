@@ -1,0 +1,30 @@
+{
+  "name": "webcam-draw",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live webcam air-draw with hand tracking and Gemini-powered shape recommendations",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "webcam",
+    "mediapipe",
+    "hands",
+    "drawing",
+    "gemini",
+    "google-ai-studio"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "@google/generative-ai": "^0.17.0",
+    "dotenv": "^16.4.5"
+  }
+}
+
+
