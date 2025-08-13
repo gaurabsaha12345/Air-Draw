@@ -57,5 +57,23 @@ POST `/api/recommend-shapes`
 - API key is server-side only (`.env`).
 - Video frames stay in browser.
 
+## Deploy to GitHub Pages (frontend only)
+GitHub Pages serves static files, so you need to host the API elsewhere (e.g., Render, Railway, Fly.io, or your own VPS) and point the frontend to it.
+
+Steps:
+1) Deploy `server.js` to a host that supports Node.js, set `GOOGLE_API_KEY` env var.
+2) Get the public base URL, e.g. `https://your-api-host.example.com`.
+3) In `public/config.js`, set:
+```html
+<script>
+  window.API_BASE = 'https://your-api-host.example.com';
+</script>
+```
+4) Commit and push.
+5) Enable GitHub Pages: Repository → Settings → Pages → Source: `GitHub Actions` or `Deploy from a branch` → `/public` via `main`.
+6) Visit `https://<username>.github.io/<repo>/`.
+
+If you prefer Actions, add a workflow that deploys `/public` to Pages.
+
 ## License
 MIT

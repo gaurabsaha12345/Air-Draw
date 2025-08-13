@@ -26,6 +26,9 @@ const brightnessVal = document.getElementById('brightnessVal');
 const contrastVal = document.getElementById('contrastVal');
 const saturationVal = document.getElementById('saturationVal');
 
+// Optional external API base (for GitHub Pages). Define window.API_BASE in config.js if hosting API elsewhere
+const API_BASE = (window.API_BASE || '').replace(/\/$/, '');
+
 const handsCtx = handsCanvas.getContext('2d');
 const drawCtx = drawCanvas.getContext('2d');
 
@@ -261,7 +264,7 @@ async function maybeRecommend(includeCurrent = false) {
     const recent = drawingStrokes.slice(-4);
     if (includeCurrent && currentStroke && currentStroke.points.length > 1) recent.push(currentStroke);
     const payload = simplifyStrokes(recent);
-    const res = await fetch('/api/recommend-shapes', {
+    const res = await fetch(`${API_BASE}/api/recommend-shapes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ strokes: payload, width: drawCanvas.width, height: drawCanvas.height }),
